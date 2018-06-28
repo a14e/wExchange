@@ -1,4 +1,4 @@
-package modules
+package module
 
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer

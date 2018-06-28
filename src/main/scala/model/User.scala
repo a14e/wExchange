@@ -30,20 +30,5 @@ object User {
   }
 
 
-  // TODO тесты
-  def updateByOperation(user: User,
-                        operation: Operation): User = {
-
-    val currencyUpdate = user.wallet.get(operation.currency)
-      .map(previousAmount => previousAmount + operation.amount)
-      .map(newAmount => operation.currency -> newAmount)
-
-    val newWallet = user.wallet ++ currencyUpdate
-
-    user.copy(wallet = newWallet)
-  }
-
-
-
   private val expectedCurrenciesInOrder = Seq("USD", "A", "B", "C", "D")
 }

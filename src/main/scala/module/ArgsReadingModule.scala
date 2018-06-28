@@ -1,7 +1,7 @@
-package modules
+package module
 
 
-trait ArgsReading {
+trait ArgsReadingModule {
   this: App  =>
 
   def findByKey(key: String): Option[String] = {
@@ -13,9 +13,9 @@ trait ArgsReading {
   final val inputOrdersPathKey = "--fromOrders"
   final val outputPathKey = "--to"
 
-  final val defaultUsersInputPath = "in.csv"
-  final val defaultOrdersInputPath = "in.csv"
-  final val defaultOutputPath = "out.csv"
+  final val defaultUsersInputPath = "clients.txt"
+  final val defaultOrdersInputPath = "orders.txt"
+  final val defaultOutputPath = "result.txt"
 
   lazy val inputUsersPath = findByKey(inputUsersPathKey).getOrElse(defaultUsersInputPath)
   lazy val inputOrdersPath = findByKey(inputOrdersPathKey).getOrElse(defaultOrdersInputPath)
