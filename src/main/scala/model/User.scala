@@ -26,7 +26,7 @@ object User {
   def stringify(user: User): String = {
     val id = user.id
     val walletString = expectedCurrenciesInOrder.flatMap(user.wallet.get).mkString("\t")
-    s"$id $walletString"
+    s"$id\t$walletString"
   }
 
 
