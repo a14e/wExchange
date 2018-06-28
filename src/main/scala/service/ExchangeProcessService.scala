@@ -15,7 +15,7 @@ class ExchangeProcessService(orderBookExecutionService: OrderBookExecutionServic
                              dataFileService: DataFileService)
                             (implicit
                              executionContext: ExecutionContext,
-                             materilizer: Materializer) extends LazyLogging{
+                             materilizer: Materializer) extends LazyLogging {
   def run(usersPath: String,
           ordersPath: String,
           outPath: String): Future[Unit] = {
