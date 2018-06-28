@@ -30,10 +30,14 @@ object User {
   }
 
 
+  // TODO тесты
   def updateByOperation(user: User,
                         operation: Operation): User = {
 
-    val currencyUpdate = user.wallet.get(operation.currency).map(_ + operation.amount).map(operation.currency -> _)
+    val currencyUpdate = user.wallet.get(operation.currency)
+      .map(previousAmount => previousAmount + operation.amount)
+      .map(newAmount => operation.currency -> newAmount)
+
     val newWallet = user.wallet ++ currencyUpdate
 
     user.copy(wallet = newWallet)

@@ -11,8 +11,8 @@ import scala.util.Try
 case class Order(userId: String,
                  pair: CurrencyPair,
                  `type`: OrderType,
-                 price: BigInt,
-                 amount: BigInt)
+                 price: Long,
+                 amount: Long)
 
 object Order {
   def parse(input: String): Try[Order] = Try {
@@ -20,8 +20,8 @@ object Order {
       case Array(userId, typeString, currencyName, priceString, amountString) =>
         val `type` = OrderType.withName(typeString)
         val pair = CurrencyPair.parse(currencyName).get
-        val price = BigInt(priceString)
-        val amount = BigInt(amountString)
+        val price = priceString.toLong
+        val amount = amountString.toLong
         Order(
           userId = userId,
           pair = pair,

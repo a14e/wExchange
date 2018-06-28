@@ -20,9 +20,9 @@ object Application extends ConcurrentModule
   val usersFuture = FileIO.fromPath(Paths.get(inputUsersPath))
     .via(Framing.delimiter( // делим по строчкам
       delimiter = ByteString("\n"),
-      maximumFrameLength = 4 * 1024,
+      maximumFrameLength = 1024,
       allowTruncation = false
-    )).map(_.utf8String.trim)
+    )).map(_.utf8String)
     .map(User.parse)
     .mapConcat {
       case Success(s) =>
@@ -33,14 +33,14 @@ object Application extends ConcurrentModule
     }.runWith(Sink.seq)
 
   val users = Await.result(usersFuture, Duration.Inf)
-  val groupedUsers = users.groupBy(_.id).mapValues(_.head)
+  val groupedUsers = users.map(x => x.id -> x).toMap
 
   val updatedUsers = FileIO.fromPath(Paths.get(inputOrdersPath))
     .via(Framing.delimiter( // делим по строчкам
       delimiter = ByteString("\n"),
-      maximumFrameLength = 4 * 1024,
+      maximumFrameLength = 1024,
       allowTruncation = false
-    )).map(_.utf8String.trim)
+    )).map(_.utf8String)
     .map(Order.parse)
     .mapConcat {
       case Success(s) => s :: Nil
