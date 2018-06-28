@@ -102,15 +102,15 @@ class OrderBookExecutionServiceImpl extends OrderBookExecutionService {
         MatchResult(tail, None, operations)
 
       } else {
-        val (operations, amount) = operationsFromOrders(sellOrder, buyOrder, isBuyerMarketMaker)
+        val (operations, executedAmount) = operationsFromOrders(sellOrder, buyOrder, isBuyerMarketMaker)
 
-        val updatedOrder = inputOrder.copy(amount = inputOrder.amount - amount)
+        val updatedOrder = inputOrder.copy(amount = inputOrder.amount - executedAmount)
         val MatchResult(tailResult, leftOrder, nextOperations) = matchOrderBook(updatedOrder, tail, isBuyerMarketMaker)
         MatchResult(tailResult, leftOrder, operations ++ nextOperations)
       }
   }
 
-  type Amount = Long
+  private type Amount = Long
   private def operationsFromOrders(sellOrder: Order,
                                    buyOrder: Order,
                                    isBuyerMarketMaker: Boolean): (immutable.Seq[Operation], Amount) = {
