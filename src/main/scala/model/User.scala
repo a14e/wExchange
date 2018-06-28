@@ -5,14 +5,14 @@ import model.Currencies.Currency
 import scala.util.Try
 
 case class User (id: String,
-                 wallet: Map[Currency, BigInt])
+                 wallet: Map[Currency, Long])
 
 object User {
 
   def parse(input: String): Try[User] = Try {
     input.trim.split("\\s+").map(_.trim).toSeq match {
       case userId +: tail if tail.size == expectedCurrenciesInOrder.size =>
-        val amounts = tail.map(BigInt(_))
+        val amounts = tail.map(_.toLong)
         val wallet = expectedCurrenciesInOrder.zip(amounts).toMap
         User(
           id = userId,
