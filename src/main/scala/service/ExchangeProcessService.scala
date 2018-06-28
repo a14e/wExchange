@@ -1,7 +1,7 @@
 package service
 
 import akka.Done
-import akka.stream.Materializer
+import akka.stream.{IOResult, Materializer}
 import akka.stream.scaladsl.{Sink, Source}
 import com.typesafe.scalalogging.LazyLogging
 import model.{Market, Operation, User}
@@ -61,7 +61,7 @@ class ExchangeProcessService(orderBookExecutionService: OrderBookExecutionServic
   }
 
   def saveUsers(users: immutable.Seq[User],
-                outPath: String) = {
+                outPath: String): Future[IOResult] = {
     Source(users).runWith(dataFileService.userWriteSink(outPath))
   }
 }

@@ -36,8 +36,9 @@ class UserParsingSpec
         "D" -> 0
       )
     )
-    val expectedResult = "C1  1000    10  5   15  0"
-    User.stringify(user) shouldBe expectedResult.replaceAll("\\s+", " ")
+    val expectedResult = "C1  1000    10  5   15  0".replaceAll("\\s+", " ")
+    val preparedResult = User.stringify(user).replaceAll("\\s+", " ")
+    preparedResult shouldBe expectedResult
   }
 
 }

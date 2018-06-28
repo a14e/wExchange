@@ -7,7 +7,8 @@ import scala.collection.immutable
 
 trait MarketExecutionService {
 
-  def executeWithOrder(market: Market, order: Order): (Market, immutable.Seq[Operation])
+  def executeWithOrder(market: Market,
+                       order: Order): (Market, immutable.Seq[Operation])
 
 }
 

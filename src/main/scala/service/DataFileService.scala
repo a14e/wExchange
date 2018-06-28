@@ -30,7 +30,8 @@ class DataFileServiceImpl extends DataFileService with LazyLogging {
         delimiter = ByteString("\n"),
         maximumFrameLength = 1024,
         allowTruncation = true
-      )).map(_.utf8String)
+      )).map(_.utf8String.trim)
+      .filter(_.nonEmpty)
       .map(User.parse)
       .mapConcat {
         case Success(s) =>
@@ -63,7 +64,8 @@ class DataFileServiceImpl extends DataFileService with LazyLogging {
         delimiter = ByteString("\n"),
         maximumFrameLength = 1024,
         allowTruncation = true
-      )).map(_.utf8String)
+      )).map(_.utf8String.trim)
+      .filter(_.nonEmpty)
       .map(Order.parse)
       .mapConcat {
         case Success(s) =>
